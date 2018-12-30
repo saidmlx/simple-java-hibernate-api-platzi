@@ -1,13 +1,21 @@
 # Java Hibernate API
 
-## Database configuration
+## Set Up Database Database configuration
 
 
+Run image
 
-docker run -d -p 33060:3306 --name mysql-db -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_DATABASE=platziprofesores platziprofesores
+```bash
+docker run -d -p 33060:3306 --name mysql-db -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_DATABASE=courses saidmlx/mysql-5-courses
+``
 
+Get into MySQL terminal with pasword __secret__
+
+```bash
 docker exec -it mysql-db mysql -p
+```
 
+if Docker scared you, use the script __*database.sql*__ in you local MySQL 
 
 
 
@@ -15,26 +23,27 @@ docker exec -it mysql-db mysql -p
 
 ### Courses
 
-{[/v1/courses],methods=[GET],produces=[application/json]}
-{[/v1/course/{id}],methods=[GET],produces=[application/json]}
-{[/v1/course],methods=[POST],produces=[application/json]}
-{[/v1/course/teacher],methods=[PATCH],produces=[application/json]}
+
+{[/v1/courses],methods=[GET]}
+{[/v1/course/{id}],methods=[GET]}
+{[/v1/course],methods=[POST]}
+{[/v1/course/teacher],methods=[PATCH]}
 {[/v1/course/{id}],methods=[PATCH]}
 {[/v1/course/{id}],methods=[DELETE]}
 
-{[/v1/socialMedia],methods=[POST],produces=[application/json]}
-{[/v1/socialMedias],methods=[GET],produces=[application/json]}
-{[/v1/socialMedia/{id}],methods=[GET],produces=[application/json]}
-{[/v1/socialMedia/{id}],methods=[PATCH],produces=[application/json]}
-{[/v1/socialMedia/{id}],methods=[DELETE],produces=[application/json]}
+{[/v1/socialMedia],methods=[POST]}
+{[/v1/socialMedias],methods=[GET]}
+{[/v1/socialMedia/{id}],methods=[GET]}
+{[/v1/socialMedia/{id}],methods=[PATCH]}
+{[/v1/socialMedia/{id}],methods=[DELETE]}
 
-{[/v1/teachers],methods=[GET],produces=[application/json]}
-{[/v1/teacher/{id}],methods=[GET],produces=[application/json]}
-{[/v1/teacher/{id}],methods=[PATCH],produces=[application/json]}
-{[/v1/teacher/{id}],methods=[DELETE],produces=[application/json]}
-{[/v1/teacher/image],methods=[POST],consumes=[multipart/form-data]}
-{[/v1/teacher/{id}/image],methods=[GET],produces=[application/json]}
-{[/v1/teacher/{id}/image],methods=[DELETE],produces=[application/json]}
+{[/v1/teachers],methods=[GET]}
+{[/v1/teacher/{id}],methods=[GET]}
+{[/v1/teacher/{id}],methods=[PATCH]}
+{[/v1/teacher/{id}],methods=[DELETE]}
+{[/v1/teacher/image],methods=[POST]}
+{[/v1/teacher/{id}/image],methods=[GET]}
+{[/v1/teacher/{id}/image],methods=[DELETE]}
 {[/v1/teacher/socialMedias],methods=[PATCH]}
-{[/v1/teacher],methods=[POST],produces=[application/json]} 
+{[/v1/teacher],methods=[POST]} 
 

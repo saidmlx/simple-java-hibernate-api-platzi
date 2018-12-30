@@ -61,3 +61,6 @@ target/
 .mvn/
 mvnw
 mvnw.cmd
+
+images
+images/

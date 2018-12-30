@@ -33,7 +33,7 @@ public class DataBaseConfiguration {
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUsername("root");
 		dataSource.setPassword("secret");
-		dataSource.setUrl("jdbc:mysql://localhost:33060/platziprofesores?autoReconnect=true&useSSL=false");
+		dataSource.setUrl("jdbc:mysql://localhost:33060/courses?autoReconnect=true&useSSL=false");
 		
 		return dataSource;
 	}
