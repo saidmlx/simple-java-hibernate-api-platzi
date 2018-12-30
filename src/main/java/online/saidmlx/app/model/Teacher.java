@@ -6,12 +6,17 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.validator.internal.util.IgnoreJava6Requirement;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="teacher")
@@ -20,7 +25,7 @@ public class Teacher implements Serializable {
 	@Id
 	@Column(name="id_teacher")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long idTeacher;
+	private Long idTeacher;
 	
 	@Column(name="name")
 	private String name;
@@ -29,11 +34,18 @@ public class Teacher implements Serializable {
 	private String avatar;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="teacher")
+	@JsonIgnore
 	private Set<Course> courses;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	
+	
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="id_teacher")
-	private Set<TeacherSocialMedia> teacherSocialMedia; 
+	private Set<TeacherSocialMedia> teacherSocialMedia;
+	
+	
+	
 	
 	public Set<TeacherSocialMedia> getTeacherSocialMedia() {
 		return teacherSocialMedia;
@@ -54,11 +66,11 @@ public class Teacher implements Serializable {
 		this.avatar = avatar;
 	}
 
-	public long getIdTeacher() {
+	public Long getIdTeacher() {
 		return idTeacher;
 	}
 
-	public void setIdTeacher(long idTeacher) {
+	public void setIdTeacher(Long idTeacher) {
 		this.idTeacher = idTeacher;
 	}
 

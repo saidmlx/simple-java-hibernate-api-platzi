@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -19,7 +21,8 @@ public class SocialMedia implements Serializable {
 	
 	@Id
 	@Column(name="id_social_media")
-	private long idSocialmedia;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long idSocialmedia;
 	
 	@Column(name="name")
 	private String name;
@@ -35,9 +38,7 @@ public class SocialMedia implements Serializable {
 	
 	public SocialMedia() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
 	
 	public SocialMedia(String name, String icon) {
 		super();
@@ -46,10 +47,10 @@ public class SocialMedia implements Serializable {
 	}
 
 
-	public long getIdSocialmedia() {
+	public Long getIdSocialmedia() {
 		return idSocialmedia;
 	}
-	public void setIdSocialmedia(long idSocialmedia) {
+	public void setIdSocialmedia(Long idSocialmedia) {
 		this.idSocialmedia = idSocialmedia;
 	}
 	public String getName() {

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javassist.expr.NewArray;
 import online.saidmlx.app.model.SocialMedia;
 import online.saidmlx.app.service.SocialMediaService;
 import online.saidmlx.util.CustomErrorType;
@@ -33,7 +34,7 @@ public class SocialMediaController {
 		if(name == null) {
 			socialMedias = socialMediaService.findAllSocialMedia();
 			if(socialMedias.isEmpty()) {
-				return new ResponseEntity(HttpStatus.NO_CONTENT);
+				return new ResponseEntity(new CustomErrorType("The SocialMedias are empty "),HttpStatus.NO_CONTENT);
 			}
 			return new ResponseEntity<List<SocialMedia>>(socialMedias,HttpStatus.OK);
 		}else {
@@ -96,10 +97,10 @@ public class SocialMediaController {
 	@RequestMapping(value="/socialMedia", method=RequestMethod.POST , headers="Accept= Application/json")
 	public ResponseEntity<?> save(@RequestBody SocialMedia socialMedia, UriComponentsBuilder uriComponent ) {
 		if(socialMedia.getName().equals(null) || socialMedia.getName().isEmpty()) {
-			return new ResponseEntity(HttpStatus.NO_CONTENT);
+			return new ResponseEntity(new CustomErrorType("The values are empty"),HttpStatus.BAD_REQUEST);
 		}
 		if(socialMediaService.findByName(socialMedia.getName()) != null) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(new CustomErrorType("The SocialMedia exists"), HttpStatus.BAD_REQUEST);
 		}
 		socialMediaService.saveSocialMedia(socialMedia);
 		SocialMedia socialMediaSaved = socialMediaService.findByName(socialMedia.getName());

@@ -33,15 +33,15 @@ public class DataBaseConfiguration {
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUsername("root");
 		dataSource.setPassword("secret");
-		//dataSource.setUrl("jdbc:mysql://localhost:3306/platziprofesores");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/platziprofesores?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+		dataSource.setUrl("jdbc:mysql://localhost:33060/platziprofesores?autoReconnect=true&useSSL=false");
+		
 		return dataSource;
 	}
 	
 	public Properties hibernateProperties() {
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
-		properties.put("show_sql", true);
+		properties.put("hibernate.show_sql", "true");
 		return properties;
 	}
 	

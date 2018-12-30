@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="teacher_social_media")
 public class TeacherSocialMedia implements Serializable {
@@ -19,13 +21,14 @@ public class TeacherSocialMedia implements Serializable {
 	@Id
 	@Column(name="id_teacher_social_media")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long idTeacherSocialMedia;
+	private Long idTeacherSocialMedia;
 	
 	@Column(name="nickname")
 	private String nickname;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_teacher")
+	@JsonIgnore
 	private Teacher teacher;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
@@ -49,11 +52,11 @@ public class TeacherSocialMedia implements Serializable {
 
 
 
-	public long getIdTeacherSocialMedia() {
+	public Long getIdTeacherSocialMedia() {
 		return idTeacherSocialMedia;
 	}
 
-	public void setIdTeacherSocialMedia(long idTeacherSocialMedia) {
+	public void setIdTeacherSocialMedia(Long idTeacherSocialMedia) {
 		this.idTeacherSocialMedia = idTeacherSocialMedia;
 	}
 

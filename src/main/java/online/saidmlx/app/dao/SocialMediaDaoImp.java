@@ -6,6 +6,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import online.saidmlx.app.model.SocialMedia;
 import online.saidmlx.app.model.TeacherSocialMedia;
 @Repository
@@ -40,7 +43,7 @@ public class SocialMediaDaoImp extends AbstractSession implements SocialMediaDao
 
 	@Override
 	public SocialMedia findById(Long idSocialMedia) {
-		System.out.println("public SocialMedia findById(Long idSocialMedia) "+idSocialMedia);
+
 		return (SocialMedia)getSession().get(SocialMedia.class, idSocialMedia);
 	}
 
@@ -58,9 +61,14 @@ public class SocialMediaDaoImp extends AbstractSession implements SocialMediaDao
 	@Override
 	public TeacherSocialMedia findSocialMediaByIdAndName(Long idSocialMedia, String nickname) {
 		
-		List<Object[]> result= getSession().createQuery("from TeacherSocialMedia tsm join SocialMedia sm where sm = : idSocialMedia and tsm.nickname = : nickname ")
+
+		List<Object[]> result= getSession().createQuery(
+				"from TeacherSocialMedia tsm join tsm.socialMedia sm "
+				+ "where sm.idSocialmedia = :idSocialMedia and tsm.nickname = :nickname ")
 				.setParameter("idSocialMedia", idSocialMedia)
 				.setParameter("nickname", nickname).list();
+		
+
 		if (result.size() > 0){
 			for(Object[] item: result) {
 				for(Object it: item) {
@@ -70,6 +78,28 @@ public class SocialMediaDaoImp extends AbstractSession implements SocialMediaDao
 				}
 			}
 		}
+		return null;
+	}
+
+	@Override
+	public TeacherSocialMedia findSocialMediaByIdTeacherAndIdSocialMedia(Long idTeacher, Long idSocialMedia) {
+		List<Object[]> list =getSession().createQuery(
+				"from TeacherSocialMedia tsm join tsm.socialMedia sm "
+				+ "join   tsm.teacher t where sm.idSocialMedia =:id_socialMedia "
+				+ "and t.idTeacher = :id_teacher ")
+		.setParameter("id_social_media", idSocialMedia)
+		.setParameter("id_teacher", idTeacher)
+		.list();
+		if(list.size()>0) {
+			for(Object[] objs: list) {
+				for(Object obj: objs) {
+					if(obj instanceof TeacherSocialMedia){
+						return (TeacherSocialMedia)obj;
+					}
+				}
+			}
+		}
+		
 		return null;
 	}
 
